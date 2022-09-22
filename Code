@@ -1,0 +1,29 @@
+#include <Stepper.h>
+ 
+int steps = 70;
+Stepper myStepper(steps, 8, 9, 10, 11);
+
+int volume=0;
+int inPin=6;
+ 
+void setup() {
+  pinMode(inPin,INPUT);
+  myStepper.setSpeed(50);
+  Serial.begin(9600);
+
+}
+void loop() {
+
+  volume = digitalRead(inPin);
+  Serial.println(volume);
+  delay(1000);
+  if(volume==1){
+    Serial.println("--->");
+    myStepper.setSpeed(70);
+    myStepper.step(3900);
+    delay(300);
+    Serial.println("<---");
+    myStepper.step(-3900);
+    delay(60000);
+  }
+}
